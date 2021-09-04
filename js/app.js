@@ -845,6 +845,17 @@ if (priceSlider) {
 		priceSlider.noUiSlider.set([priceStartValue, priceEndValue]);
 	}
 }
+// ===========================Прогресс бар при сколле======================
+const progress = document.querySelector('.progress');
+window.addEventListener('scroll', progressBar);
+function progressBar(e) {
+	let windowScroll = document.body.scrollTop || document.documentElement.scrollTop;
+	let windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+	let persent = windowScroll / windowHeight * 100;
+	progress.style.width = persent + '%';
+	progress.classList.add('_scroll');
+}
+// ===========================Прогресс бар при сколле======================
 var ua = window.navigator.userAgent;
 var msie = ua.indexOf("MSIE ");
 var isMobile = { Android: function () { return navigator.userAgent.match(/Android/i); }, BlackBerry: function () { return navigator.userAgent.match(/BlackBerry/i); }, iOS: function () { return navigator.userAgent.match(/iPhone|iPad|iPod/i); }, Opera: function () { return navigator.userAgent.match(/Opera Mini/i); }, Windows: function () { return navigator.userAgent.match(/IEMobile/i); }, any: function () { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); } };
@@ -907,6 +918,28 @@ if (location.hash) {
 		_goto(document.querySelector('.' + hsh), 500, '');
 	}
 }
+//=================
+//Menu
+let iconMenu = document.querySelector(".icon-menu");
+if (iconMenu != null) {
+	let delay = 500;
+	let menuBody = document.querySelector(".menu__body");
+	iconMenu.addEventListener("click", function (e) {
+		if (unlock) {
+			body_lock(delay);
+			iconMenu.classList.toggle("_active");
+			menuBody.classList.toggle("_active");
+		}
+	});
+};
+function menu_close() {
+	let iconMenu = document.querySelector(".icon-menu");
+	let menuBody = document.querySelector(".menu__body");
+	iconMenu.classList.remove("_active");
+	menuBody.classList.remove("_active");
+}
+
+
 //BodyLock
 function body_lock(delay) {
 	let body = document.querySelector("body");
@@ -952,6 +985,8 @@ function body_lock_add(delay) {
 		}, delay);
 	}
 }
+
+
 //========================================
 //Wrap
 function _wrap(el, wrapper) {
@@ -965,11 +1000,8 @@ function _removeClasses(el, class_name) {
 		el[i].classList.remove(class_name);
 	}
 }
-//========================================
-//IsHidden
-function _is_hidden(el) {
-	return (el.offsetParent === null)
-}
+
+
 // Dynamic Adapt v.1
 // HTML data-da="where(uniq class name),when(breakpoint),position(digi)"
 // e.x. data-da=".item,992,2"
