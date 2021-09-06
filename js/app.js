@@ -985,8 +985,6 @@ function body_lock_add(delay) {
 		}, delay);
 	}
 }
-
-
 //========================================
 //Wrap
 function _wrap(el, wrapper) {
@@ -1000,7 +998,10 @@ function _removeClasses(el, class_name) {
 		el[i].classList.remove(class_name);
 	}
 }
-
+//IsHidden
+function _is_hidden(el) {
+	return (el.offsetParent === null)
+}
 //=================
 //SlideToggle
 let _slideUp = (target, duration = 500) => {
